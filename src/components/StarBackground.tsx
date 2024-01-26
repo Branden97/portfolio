@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react"
-// import styles from "../assets/stars.sass";
-
 import "../assets/star-background.sass"
 
 interface StarBackgroundProps {

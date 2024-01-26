@@ -11,7 +11,9 @@ $STAR_HEIGHT_UNIT: px
 /// @param $heightUnit - The unit of measurement for the maxHeight.
 /// @return - A string representing a single box shadow.
 @function createBoxShadowString($maxWidth, $widthUnit, $maxHeight, $heightUnit, $color)
-    @return "#{random($maxWidth)}.#{random($maxWidth)}#{$widthUnit} #{random($maxHeight)}.#{random($maxHeight)}#{$heightUnit} #{$color}"
+    $halfWidth: calc($maxWidth / 2)
+
+    @return "#{random($maxWidth) - $halfWidth}.#{random($maxWidth)}#{$widthUnit} #{random($maxHeight)}.#{random($maxHeight)}#{$heightUnit} #{$color}"
 
 /// Generates a string for multiple box shadows.
 /// @param $numberOfStars - The number of box shadows to generate.
@@ -38,56 +40,63 @@ $shadows-small: multiple-box-shadow(1000, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_H
 $shadows-medium: multiple-box-shadow(200, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_HEIGHT, $STAR_HEIGHT_UNIT, )
 $shadows-big: multiple-box-shadow(100, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_HEIGHT, $STAR_HEIGHT_UNIT, )
 
-.small-stars
+.star-background
+    background: transparent
+    position: absolute
+    // animation-delay: 2s
+
+.small
+    @extend .star-background
     width: 1px
     height: 1px
-    background: transparent
     box-shadow: $shadows-small
-    animation: animStar 150s linear infinite, initialZoomIn 2s
-    position: absolute
+    animation: animStar 150s linear infinite
 
     &:after
+        @extend .star-background
         content: " "
-        position: absolute
         top: #{$STAR_HEIGHT}#{$STAR_HEIGHT_UNIT}
         width: 1px
         height: 1px
-        background: transparent
         box-shadow: $shadows-small
 
-.medium-stars
+.medium
+    @extend .star-background
     width: 2px
     height: 2px
-    background: transparent
     box-shadow: $shadows-medium
     animation: animStar 100s linear infinite
-    position: absolute
 
     &:after
+        @extend .star-background
         content: " "
-        position: absolute
         top: #{$STAR_HEIGHT}#{$STAR_HEIGHT_UNIT}
         width: 2px
         height: 2px
-        background: transparent
         box-shadow: $shadows-medium
 
-.large-stars
+.large
+    @extend .star-background
     width: 3px
     height: 3px
-    background: transparent
     box-shadow: $shadows-big
     animation: animStar 50s linear infinite
-    position: absolute
 
     &:after
+        @extend .star-background
         content: " "
-        position: absolute
         top: #{$STAR_HEIGHT}#{$STAR_HEIGHT_UNIT}
         width: 3px
         height: 3px
-        background: transparent
         box-shadow: $shadows-big
+#star-container
+    animation: initialZoomIn 2s
+    width: 100vw
+    height: 100vh
+    // left: 50vw
+    // position: absolute
+    display: flex
+    justify-content: center
 
 @keyframes animStar
     from

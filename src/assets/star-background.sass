@@ -4,16 +4,24 @@ $STAR_HEIGHT: 2000
 $STAR_HEIGHT_UNIT: px
 
 /// Creates a single box shadow string.
-/// @param $maxWidth - The maximum random maxWidth value.
-/// @param $maxHeight - The maximum random maxHeight value.
+/// @param $maxWidth - The maximum random horizontal offset value.
+/// @param $widthUnit - The unit of measurement for the horizontal offset.
+/// @param $maxHeight - The maximum random vertical offset value.
+/// @param $heightUnit - The unit of measurement for the vertical offset.
 /// @param $color - The color of the box shadow.
-/// @param $widthUnit - The unit of measurement for the maxWidth.
-/// @param $heightUnit - The unit of measurement for the maxHeight.
+/// @param $maxBlur - The maximum random blur radius value.
+/// @param $maxSpread - The maximum random spread radius value.
 /// @return - A string representing a single box shadow.
-@function createBoxShadowString($maxWidth, $widthUnit, $maxHeight, $heightUnit, $color)
+@function createBoxShadowString($maxWidth, $widthUnit, $maxHeight, $heightUnit, $color, $maxBlur: 0, $maxSpread: 0)
     $halfWidth: calc($maxWidth / 2)
+    $horizontalOffset: "#{random($maxWidth) - $halfWidth}#{$widthUnit}"
+    $verticalOffset: "#{random($maxHeight)}#{$heightUnit}"
+    $blurRadius: if($maxBlur > 0, "#{random($maxBlur)}px" , null)
+    $spreadRadius: if($maxSpread > 0, "#{random($maxSpread)}px",null)
 
-    @return "#{random($maxWidth) - $halfWidth}.#{random($maxWidth)}#{$widthUnit} #{random($maxHeight)}.#{random($maxHeight)}#{$heightUnit} #{$color}"
+    $preparedString: "#{$horizontalOffset} #{$verticalOffset} #{$blurRadius} #{$spreadRadius} #{$color}"
+
+    @return $preparedString
 
 /// Generates a string for multiple box shadows.
 /// @param $numberOfStars - The number of box shadows to generate.
@@ -23,11 +31,11 @@ $STAR_HEIGHT_UNIT: px
 /// @param $widthUnit - The unit of measurement for width, default 'px'.
 /// @param $heightUnit - The unit of measurement for height, default 'px'.
 /// @return - A string representing multiple box shadows.
-@function multiple-box-shadow($numberOfStars, $maxWidth: $STAR_WIDTH, $widthUnit: $STAR_WIDTH_UNIT, $maxHeight: $STAR_HEIGHT, $heightUnit: $STAR_HEIGHT_UNIT, $color: #FFF)
+@function multiple-box-shadow($numberOfStars, $maxWidth: $STAR_WIDTH, $widthUnit: $STAR_WIDTH_UNIT, $maxHeight: $STAR_HEIGHT, $heightUnit: $STAR_HEIGHT_UNIT, $color: #FFF, $maxBlur: 0, $maxSpread: 0)
     $boxShadows: ()
 
     @for $i from 1 through $numberOfStars
-        $newString: createBoxShadowString($maxWidth, $widthUnit, $maxHeight, $heightUnit, $color)
+        $newString: createBoxShadowString($maxWidth, $widthUnit, $maxHeight, $heightUnit, $color, $maxBlur, $maxSpread)
         // $newString: "asdf"
         $boxShadows: append($boxShadows, unquote($newString))
     // @debug "boxShadows:" $boxShadows
@@ -35,16 +43,17 @@ $STAR_HEIGHT_UNIT: px
     // @debug "$result:" $result
     @return $result
 
-$shadows-small: multiple-box-shadow(1000, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_HEIGHT, $STAR_HEIGHT_UNIT, )
+$shadows-small: multiple-box-shadow($numberOfStars: 1000, $maxBlur: 1, $maxSpread: 0)
 // $shadows-small: multiple-box-shadow(5000, 100, 'vw')
-$shadows-medium: multiple-box-shadow(200, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_HEIGHT, $STAR_HEIGHT_UNIT, )
-$shadows-big: multiple-box-shadow(100, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_HEIGHT, $STAR_HEIGHT_UNIT, )
+$shadows-medium: multiple-box-shadow($numberOfStars: 200, $maxBlur: 1, $maxSpread: 0 )
+$shadows-big: multiple-box-shadow($numberOfStars: 100, $maxBlur: 2, $maxSpread: 0 )
 
 .star-background
     background: transparent
     position: absolute
     // animation-delay: 2s
     z-index: -1
+    border-radius: 100px
 
 .small
     @extend .star-background

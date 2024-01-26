@@ -106,5 +106,7 @@ $shadows-big: multiple-box-shadow(100, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_HEIG
 @keyframes initialZoomIn
     from
         transform: scale(0,0)
+        clip-path: inset(50% round 50%)
     to
         transform: scale(1,1)
+        clip-path: inset(0% round 0%)

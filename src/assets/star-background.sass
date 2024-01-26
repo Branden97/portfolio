@@ -43,16 +43,16 @@ $STAR_HEIGHT_UNIT: px
     // @debug "$result:" $result
     @return $result
 
-$shadows-small: multiple-box-shadow($numberOfStars: 1000, $maxBlur: 1, $maxSpread: 0)
+$shadows-small: multiple-box-shadow($numberOfStars: 1000, $maxBlur: 0, $maxSpread: 0)
 // $shadows-small: multiple-box-shadow(5000, 100, 'vw')
-$shadows-medium: multiple-box-shadow($numberOfStars: 200, $maxBlur: 1, $maxSpread: 0 )
-$shadows-big: multiple-box-shadow($numberOfStars: 100, $maxBlur: 2, $maxSpread: 0 )
+$shadows-medium: multiple-box-shadow($numberOfStars: 200, $maxBlur: 0, $maxSpread: 0 )
+$shadows-big: multiple-box-shadow($numberOfStars: 100, $maxBlur: 0, $maxSpread: 0 )
 
 .star-background
     background: transparent
     position: absolute
     // animation-delay: 2s
-    z-index: -1
+    z-index: -2
     border-radius: 100px
 
 .small

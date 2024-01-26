@@ -1,0 +1,101 @@
+$STAR_WIDTH: 2000
+$STAR_WIDTH_UNIT: px
+$STAR_HEIGHT: 2000
+$STAR_HEIGHT_UNIT: px
+
+/// Creates a single box shadow string.
+/// @param $maxWidth - The maximum random maxWidth value.
+/// @param $maxHeight - The maximum random maxHeight value.
+/// @param $color - The color of the box shadow.
+/// @param $widthUnit - The unit of measurement for the maxWidth.
+/// @param $heightUnit - The unit of measurement for the maxHeight.
+/// @return - A string representing a single box shadow.
+@function createBoxShadowString($maxWidth, $widthUnit, $maxHeight, $heightUnit, $color)
+    @return "#{random($maxWidth)}.#{random($maxWidth)}#{$widthUnit} #{random($maxHeight)}.#{random($maxHeight)}#{$heightUnit} #{$color}"
+
+/// Generates a string for multiple box shadows.
+/// @param $numberOfStars - The number of box shadows to generate.
+/// @param $maxWidth - The maximum width for each box shadow, default 2000px.
+/// @param $maxHeight - The maximum height for each box shadow, default 2000px.
+/// @param $color - The color of each box shadow, default white (#FFF).
+/// @param $widthUnit - The unit of measurement for width, default 'px'.
+/// @param $heightUnit - The unit of measurement for height, default 'px'.
+/// @return - A string representing multiple box shadows.
+@function multiple-box-shadow($numberOfStars, $maxWidth: $STAR_WIDTH, $widthUnit: $STAR_WIDTH_UNIT, $maxHeight: $STAR_HEIGHT, $heightUnit: $STAR_HEIGHT_UNIT, $color: #FFF)
+    $boxShadows: ()
+
+    @for $i from 1 through $numberOfStars
+        $newString: createBoxShadowString($maxWidth, $widthUnit, $maxHeight, $heightUnit, $color)
+        // $newString: "asdf"
+        $boxShadows: append($boxShadows, unquote($newString))
+    // @debug "boxShadows:" $boxShadows
+    $result: join($boxShadows, (), comma )
+    // @debug "$result:" $result
+    @return $result
+
+$shadows-small: multiple-box-shadow(1000, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_HEIGHT, $STAR_HEIGHT_UNIT, )
+// $shadows-small: multiple-box-shadow(5000, 100, 'vw')
+$shadows-medium: multiple-box-shadow(200, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_HEIGHT, $STAR_HEIGHT_UNIT, )
+$shadows-big: multiple-box-shadow(100, $STAR_WIDTH, $STAR_WIDTH_UNIT, $STAR_HEIGHT, $STAR_HEIGHT_UNIT, )
+
+.small-stars
+    width: 1px
+    height: 1px
+    background: transparent
+    box-shadow: $shadows-small
+    animation: animStar 150s linear infinite, initialZoomIn 2s
+    position: absolute
+
+    &:after
+        content: " "
+        position: absolute
+        top: #{$STAR_HEIGHT}#{$STAR_HEIGHT_UNIT}
+        width: 1px
+        height: 1px
+        background: transparent
+        box-shadow: $shadows-small
+
+.medium-stars
+    width: 2px
+    height: 2px
+    background: transparent
+    box-shadow: $shadows-medium
+    animation: animStar 100s linear infinite
+    position: absolute
+
+    &:after
+        content: " "
+        position: absolute
+        top: #{$STAR_HEIGHT}#{$STAR_HEIGHT_UNIT}
+        width: 2px
+        height: 2px
+        background: transparent
+        box-shadow: $shadows-medium
+
+.large-stars
+    width: 3px
+    height: 3px
+    background: transparent
+    box-shadow: $shadows-big
+    animation: animStar 50s linear infinite
+    position: absolute
+
+    &:after
+        content: " "
+        position: absolute
+        top: #{$STAR_HEIGHT}#{$STAR_HEIGHT_UNIT}
+        width: 3px
+        height: 3px
+        background: transparent
+        box-shadow: $shadows-big
+
+@keyframes animStar
+    from
+        transform: translateY(0px)
+    to
+        transform: translateY(-#{$STAR_HEIGHT}#{$STAR_HEIGHT_UNIT})
+@keyframes initialZoomIn
+    from
+        transform: scale(0,0)
+    to
+        transform: scale(1,1)

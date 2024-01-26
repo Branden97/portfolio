@@ -1,33 +1,27 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+// import { useState } from "react";
+// import reactLogo from "./assets/react.svg";
+// import viteLogo from "/vite.svg";
+// import "./App.css";
+import { useEffect, useState } from "react";
+import "./assets/styles.sass";
+import { StarBackground } from "./components/StarBackground";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Branden Williams</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>
+        Branden <span>Williams</span>
+      </h1>
+
+      <StarBackground className="small-stars" maxXOffset={10} maxYOffset={10} />
+      <StarBackground
+        className="medium-stars"
+        maxXOffset={20}
+        maxYOffset={20}
+      />
+      <StarBackground className="large-stars" maxXOffset={30} maxYOffset={30} />
+      {/* <div className="medium-stars" />
+      <div className="large-stars" /> */}
     </>
   );
 }

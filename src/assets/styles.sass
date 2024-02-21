@@ -1,40 +1,96 @@
 // Variables
-$backgroundBgColor: #38495a
-$backgroundFgColor: white
-$titleBgColor: #090A0F
-$titleFgColor: #1B2735
+$titleColorBottom: #38495a
+$titleColorTop: white
+$backgroundBgColor: #090A0F
+$backgroundFgColor: #1B2735
 
-html
-  height: 100%
-  background: radial-gradient(ellipse at bottom, $titleFgColor 0%, $titleBgColor 100%)
-  overflow: hidden
+@import "./buttons"
 
-h1
-  position: absolute
-  top: 50%
-  left: 0
-  right: 0
+#gradient-background
+  height: 100vh
+  width: 100vw
+  position: fixed
+  top: 0px
+  bottom: 0px
+  left: 0px
+  right: 0px
+  z-index: -21
+  background: radial-gradient(ellipse at bottom, $backgroundFgColor 0%, $backgroundBgColor 100%)
+  // background: $backgroundFgColor
+  // overflow: hidden
 
-  color: #FFF
-  text-align: center
-  font-family: 'lato',sans-serif
-  font-weight: 600
-  font-size: 50px
-  letter-spacing: 10px
+// // Keyframes for fade-in effect
+// @keyframes fadeIn
+//   from
+//     opacity: 0
+//   to
+//     opacity: 1
 
-  margin-top: -60px
-  padding-left: 10px
-h1 span
-  background: -webkit-linear-gradient($backgroundFgColor, $backgroundBgColor)
-  -webkit-background-clip: text
-  -webkit-text-fill-color: transparent
-  // span
-  // font-weight: 350px
-
-// .middle
-//   background-color: green
-//   height: 4px
-//   width: 4px
+// h1
 //   position: absolute
-//   top: 50vh
-//   left: 50vw
+//   top: 50%
+//   left: 0
+//   right: 0
+//   color: #FFF
+//   text-align: center
+//   font-family: 'lato', sans-serif
+//   font-weight: 600
+//   font-size: 50px
+//   letter-spacing: 10px
+//   margin-top: -60px
+//   padding-left: 10px
+// h1 > span:nth-child(0)
+//   opacity: 0
+//   animation: fadeIn 0.7s ease-out 0.7s forwards
+// h1 > span:nth-child(2)
+//   opacity: 0
+//   animation: fadeIn 1.7s ease-out 1.7s forwards
+
+// h1 span, header span
+//   background: linear-gradient($titleColorTop, $titleColorBottom)
+//   background-clip: text
+//   color: transparent
+
+// #next-section
+//   display: block
+//   height: 100vh
+//   width: 100vw
+
+// // section
+// //   max-height: 100vh
+// //   padding-top: 3em
+
+// #profile-photo
+//   width: 60% // Base size for mobile, ensuring it doesn't take up the full width
+//   height: auto // Maintain aspect ratio
+//   border-radius: 50% // Circular photo
+//   display: block
+//   margin: 0 auto 20px // Center align and add some space below
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) // Subtle shadow for depth
+
+//   // Media query for tablets
+//   @media (min-width: 768px)
+//     width: 40% // Increase size a bit as we have more space
+
+//   // Media query for desktops
+//   @media (min-width: 1024px)
+//     width: 20% // Further increase size or adjust as needed for larger screens
+//     margin: 0 auto 30px // Adjust spacing as needed
+
+// // header
+// //   position: sticky
+// //   top: 0px
+// //   display: flex
+// //   flex-direction: row
+// //   div
+// //     padding: 8px
+// //     margin-left: 8px
+// //     border-radius: 50%
+// //     // border-style: solid
+// //     // border-color: white
+// //     // border-width: 1px
+
+// //     span
+// //       font-family: 'lato', sans-serif
+// //       font-weight: 600
+// //       // margin-top: 8px

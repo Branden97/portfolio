@@ -1,0 +1,87 @@
+@property --gradient-angle
+  syntax: "<angle>"
+  initial-value: 0deg
+  inherits: false
+
+@keyframes spin
+  0%
+    --gradient-angle: 0deg
+  100%
+    --gradient-angle: 360deg
+
+// $clr-1: #390099
+// $clr-2: #9e0059
+// $clr-3: #ff0054
+// $clr-4: #ff5400
+// $clr-5: #ffbd00
+// $clrs: $clr-1, $clr-2, $clr-3, $clr-4, $clr-5, $clr-4, $clr-3, $clr-2, $clr-1
+$clr-1: #9829AD
+$clr-2: #436AAC
+$clr-3: #43B7B8
+$clrs: $clr-1, $clr-2, $clr-3, $clr-2, $clr-1
+
+$border-width: 0.2rem
+$blur-amount: 0.5rem
+
+$top-left-outer: -200% -200%
+$bottom-left-outer: -200% 200%
+$left-bottom-inner: calc(0% + $border-width) 200% // This combines the concept of extending to the bottom-left inner side.
+$top-left-inner: calc(0% + $border-width) calc(0% + $border-width)
+$top-right-inner: calc(100% - $border-width) calc(0% + $border-width)
+$bottom-right-inner: calc(100% - $border-width) calc(100% - $border-width)
+$bottom-left-inner: calc(0% + $border-width) calc(100% - $border-width)
+$bottom-right-outer: 200% 200%
+$top-right-outer: 200% -200%
+
+$far: 7px
+$mid: 4.5px
+$near: 2.5px
+$xs: .9px
+
+// Create multiple coordinates per corner to create rounding effect.
+$top-left-inner-1: calc(0% + $border-width) calc(0% + $border-width + $far)
+$top-left-inner-2: calc(0% + $border-width + $xs) calc(0% + $border-width + $mid)
+$top-left-inner-3: calc(0% + $border-width + $near) calc(0% + $border-width + $near)
+$top-left-inner-4: calc(0% + $border-width + $mid) calc(0% + $border-width + $xs)
+$top-left-inner-5: calc(0% + $border-width + $far) calc(0% + $border-width)
+$top-left-inner: $top-left-inner-1, $top-left-inner-2, $top-left-inner-3, $top-left-inner-4, $top-left-inner-5 // Overwrite the existing corner variables with the multiple coordinates
+
+$top-right-inner-1: calc(100% - $border-width - $far) calc(0% + $border-width )
+$top-right-inner-2: calc(100% - $border-width - $mid) calc(0% + $border-width + $xs)
+$top-right-inner-3: calc(100% - $border-width - $near) calc(0% + $border-width + $near)
+$top-right-inner-4: calc(100% - $border-width - $xs) calc(0% + $border-width + $mid)
+$top-right-inner-5: calc(100% - $border-width) calc(0% + $border-width + $far)
+$top-right-inner: $top-right-inner-1, $top-right-inner-2, $top-right-inner-3, $top-right-inner-4, $top-right-inner-5
+
+$bottom-right-inner-1: calc(100% - $border-width) calc(100% - $border-width - $far)
+$bottom-right-inner-2: calc(100% - $border-width - $xs) calc(100% - $border-width - $mid)
+$bottom-right-inner-3: calc(100% - $border-width - $near) calc(100% - $border-width - $near)
+$bottom-right-inner-4: calc(100% - $border-width - $mid) calc(100% - $border-width - $xs)
+$bottom-right-inner-5: calc(100% - $border-width - $far) calc(100% - $border-width)
+$bottom-right-inner: $bottom-right-inner-1, $bottom-right-inner-2, $bottom-right-inner-3, $bottom-right-inner-4, $bottom-right-inner-5
+
+$bottom-left-inner-1: calc(0% + $border-width + $far) calc(100% - $border-width )
+$bottom-left-inner-2: calc(0% + $border-width + $mid) calc(100% - $border-width - $xs)
+$bottom-left-inner-3: calc(0% + $border-width + $near) calc(100% - $border-width - $near)
+$bottom-left-inner-4: calc(0% + $border-width + $xs) calc(100% - $border-width - $mid)
+$bottom-left-inner-5: calc(0% + $border-width ) calc(100% - $border-width - $far)
+$bottom-left-inner: $bottom-left-inner-1, $bottom-left-inner-2, $bottom-left-inner-3, $bottom-left-inner-4, $bottom-left-inner-5
+
+$border-polygon: polygon($top-left-outer, $bottom-left-outer, $left-bottom-inner, $top-left-inner, $top-right-inner, $bottom-right-inner, $bottom-left-inner, $left-bottom-inner, $bottom-right-outer, $top-right-outer)
+
+.glowing-boarder
+  position: relative
+  &::before, &::after
+    content: ""
+    position: absolute
+    inset: -$border-width
+    z-index: -1
+    background: conic-gradient(from var(--gradient-angle), $clrs)
+    border-radius: inherit
+    animation: spin 3s linear infinite
+    clip-path: $border-polygon
+  &::after
+    filter: blur($blur-amount)
+    z-index: -2
+  &::before
+    // box-shadow: 

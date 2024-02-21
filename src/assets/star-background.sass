@@ -52,7 +52,7 @@ $shadows-big: multiple-box-shadow($numberOfStars: 100, $maxBlur: 0, $maxSpread: 
     background: transparent
     position: absolute
     // animation-delay: 2s
-    z-index: -2
+    z-index: -20
     border-radius: 100px
 
 .small
@@ -104,9 +104,10 @@ $shadows-big: multiple-box-shadow($numberOfStars: 100, $maxBlur: 0, $maxSpread: 
     width: 100vw
     height: 100vh
     // left: 50vw
-    // position: absolute
+    position: fixed
     display: flex
     justify-content: center
+    z-index: -19
 
 @keyframes animStar
     from

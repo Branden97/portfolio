@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .gradient-text {
+        @apply bg-clip-text text-transparent bg-gradient-to-t from-slate-400 to-slate-100;
+    }
+
+    .highlight-on-focus {
+        @apply transition duration-150 ease-in-out focus:outline-none focus:ring-inset focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
+    }
+
+    .btn {
+        @apply text-white font-bold py-2 px-4 rounded-xl active:opacity-50;
+    }
+
+    .glowing-boarder.highlight-on-focus {
+        --tw-ring-inset: unset
+    }
+
+    .arrow-down {
+        width: 2px;
+        height: 20px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 10px solid white;
+        margin: 20px;
+    }
+}

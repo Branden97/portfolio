@@ -19,6 +19,9 @@ export function StarBackground({ className, maxXOffset, maxYOffset }: StarBackgr
   function parallax(event: TouchEvent | MouseEvent) {
     const clientX = "touches" in event ? event.touches[0].clientX : event.clientX
     const clientY = "touches" in event ? event.touches[0].clientY : event.clientY
+    
+    // Disable on mobile because it moving when scrolling looks wierd
+    if ("touches" in event) return
 
     function getNormalizedValue(value: number, maxValue: number): number {
       return (value - maxValue / 2) / (maxValue / 2)
